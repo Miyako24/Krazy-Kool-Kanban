@@ -1,64 +1,46 @@
 import { JwtPayload, jwtDecode } from 'jwt-decode';
 
 class AuthService {
+  //Return the decoded user profile
   getProfile() {
     const token = this.getToken();
-    if (!token) {
-      return null;
-    }
-    // TODO: return the decoded token
+    if (!token) return null;
+    return jwtDecode(token);
   }
 
+  //Check if the user is logged in
   loggedIn() {
     const token = this.getToken();
-    if (!token) {
-      return false;
-    }
-    // TODO: return a value that indicate
-    // s if the user is logged in
+    return !!token && !this.isTokenExpired(token);
   }
-  
+
+  //Check if token is expired
   isTokenExpired(token: string) {
-    const decoded: JwtPayload = jwtDecode(token);
-    const currentTime = Date.now() / 1000; // Convert to seconds
-    if (decoded.exp && decoded.exp < currentTime) {
-      return true; // Token is expired
+    try {
+      const decoded: JwtPayload = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      return decoded.exp ? decoded.exp < currentTime : true;
+    } catch (err) {
+      console.error("Error decoding token", err);
+      return true;
     }
-    return false; // Token is not expired
-
-    // TODO: return a value that indicates if the token is expired
   }
 
+  //Get token from localStorage
   getToken(): string {
-    const token = localStorage.getItem('id_token');
-    if (!token) {
-      return '';
-    }
-    // TODO: return the token
+    return localStorage.getItem('id_token') || '';
   }
 
+  //Save token and redirect
   login(idToken: string) {
-    // Save the token to localStorage
     localStorage.setItem('id_token', idToken);
-    // Decode the token to get the user profile
-    const decoded: JwtPayload = jwtDecode(idToken);
-
-
-    // TODO: set the token to localStorage
-    // TODO: redirect to the home page
-
+    window.location.assign('/'); // Redirect to home page
   }
 
+  //Remove token and redirect to login
   logout() {
-
-    // Remove the token from localStorage
     localStorage.removeItem('id_token');
-
-
-    // TODO: remove the token from localStorage
-
-    // TODO: redirect to the login page
-    
+    window.location.assign('/');
   }
 }
 
