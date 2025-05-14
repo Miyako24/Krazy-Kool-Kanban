@@ -30,4 +30,4 @@ Users can contact me to discuss any further advice, input and or collboration ef
 
 For any questions, contact me at [via Email](mailto:dreamgardens24@gmail.com).  
 GitHub: [Miyako24](https://github.com/Miyako24/Krazy-Kool-Kanban) # Krazy-Kool-Kanban
-Render: [Miyako24](https://api-candidate-search.onrender.com) # Krazy-Kool-Kanban
+Render: [Miyako24](https://krazy-kool-kanban.onrender.com) # Krazy-Kool-Kanban
